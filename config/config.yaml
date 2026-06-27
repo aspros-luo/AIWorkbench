@@ -1,0 +1,17 @@
+version: 0.2
+
+workspace_root: workspaces
+
+default_template: workspace
+
+default_editor: cursor
+
+git_init: false
+
+doctor:
+  check_git: true
+  check_node: true
+  check_python: true
+  check_docker: true
+  check_ollama: false
+  check_mcp: false

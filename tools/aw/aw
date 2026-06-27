@@ -1,0 +1,28 @@
+#!/bin/bash
+# ==============================================================================
+# AIWorkbench CLI - 核心动态路由分发器 (Dispatcher)
+# ==============================================================================
+set -e
+
+# 动态锚定全局根目录并导出，供所有子命令脚本继承
+export ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+export CONFIG_FILE="$ROOT/config/config.yaml"
+
+# 获取命令参数，默认为 help
+COMMAND="${1:-help}"
+
+# 弹出第一个参数，将其余参数传递给子命令
+shift || true
+
+COMMAND_FILE="$ROOT/tools/aw/commands/$COMMAND.sh"
+
+# 路由分发逻辑
+if [ -f "$COMMAND_FILE" ]; then
+    exec "$COMMAND_FILE" "$@"
+else
+    echo "❌ 未知指令: $COMMAND"
+    echo
+    echo "当前可用指令列表 (Available commands):"
+    ls "$ROOT/tools/aw/commands" | sed 's/\.sh//'
+    exit 1
+fi
