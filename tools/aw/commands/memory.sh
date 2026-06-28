@@ -1,46 +1,58 @@
 #!/bin/bash
-# ==============================================================================
-# AIWorkbench Command - aw memory (长期记忆运行时引擎 - GEMINI)
-# ==============================================================================
-set -e
 
-if [ -z "$ROOT" ]; then
-    ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
-fi
+source "$ROOT/tools/aw/lib/common.sh"
+source "$ROOT/tools/aw/lib/config.sh"
+source "$ROOT/tools/aw/lib/memory.sh"
 
-WS_NAME=$1
+WS_NAME="$1"
+ACTION="$2"
 
 if [ -z "$WS_NAME" ]; then
-    echo "❌ 错误: 请指定工作空间名称。"
-    echo "用法: aw memory TemuPilot"
+    echo "Usage:"
+    echo "  aw memory <workspace>"
+    echo "  aw memory <workspace> decision <title> <reason> <impact>"
     exit 1
 fi
 
-TARGET_DIR="$ROOT/workspaces/$WS_NAME/ai/memory"
-MEMORY_FILE="$TARGET_DIR/HISTORY.md"
+MEMORY_DIR="$WORKSPACE_DIR/$WS_NAME/ai/memory"
 
-if [ ! -d "$ROOT/workspaces/$WS_NAME" ]; then
-    echo "❌ 错误: 工作空间 [$WS_NAME] 不存在。"
+[ ! -d "$MEMORY_DIR" ] && {
+    echo "Memory not found."
     exit 1
+}
+
+if [ "$ACTION" = "decision" ]; then
+
+    append_decision \
+        "$WS_NAME" \
+        "$3" \
+        "$4" \
+        "$5"
+
+    echo
+    echo "Decision added."
+    exit 0
 fi
 
-mkdir -p "$TARGET_DIR"
+echo
+echo "===================================="
+echo " AIWorkbench Memory"
+echo "===================================="
+echo
 
-if [ ! -f "$MEMORY_FILE" ]; then
-    cat << 'INNER_EOF' > "$MEMORY_FILE"
-# 🧠 {{WORKSPACE_NAME}} - Long-term Memory (长期记忆)
-# 注释：本文件由 AI 自动追加维护，记录项目核心技术决策与重大踩坑历史。
+for file in \
+PROJECT_MEMORY.md \
+DECISIONS.md \
+TODO_MEMORY.md \
+SESSION_MEMORY.md
+do
 
-## 🪵 核心决策流水账
-- **2026-06-27**: 项目正式接入 AIWorkbench 骨架，通关 Context 运行时。
-INNER_EOF
-    sed -i '' "s/{{WORKSPACE_NAME}}/$WS_NAME/g" "$MEMORY_FILE"
-fi
+echo "------------------------------------"
+echo "$file"
+echo "------------------------------------"
 
-echo "======================================================================"
-echo "🧠 AIWorkbench Memory Runtime - 正在读取 [$WS_NAME] 长期记忆"
-echo "======================================================================"
-echo ""
-cat "$MEMORY_FILE"
-echo ""
-echo "======================================================================"
+cat "$MEMORY_DIR/$file"
+
+echo
+
+done
