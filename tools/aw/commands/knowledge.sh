@@ -15,32 +15,44 @@ case "$ACTION" in
 
 search)
 
-    KEYWORD="$2"
+WORKSPACE="$2"
+KEYWORD="$3"
 
-    if [ -z "$KEYWORD" ]; then
-        echo "Usage:"
-        echo "  aw knowledge search <keyword>"
-        exit 1
-    fi
+[ -z "$WORKSPACE" ] && {
 
-    echo "Search:"
-    echo "--------------------------------"
+echo "Usage:"
+echo "  aw knowledge search <workspace> <keyword>"
+exit 1
 
-    search_knowledge "$KEYWORD"
+}
 
-    ;;
+[ -z "$KEYWORD" ] && {
+
+echo "Usage:"
+echo "  aw knowledge search <workspace> <keyword>"
+exit 1
+
+}
+
+echo "Search:"
+echo "--------------------------------"
+
+knowledge_search "$WORKSPACE" "$KEYWORD"
+
+;;
 
 "")
 
-    echo "Usage:"
-    echo "  aw knowledge search <keyword>"
+echo "Usage:"
+echo "  aw knowledge search <workspace> <keyword>"
 
-    ;;
+;;
 
 *)
 
-    echo "Unknown subcommand: $ACTION"
+echo "Unknown subcommand: $ACTION"
 
-    ;;
+;;
 
 esac
+

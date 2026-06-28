@@ -1,55 +1,55 @@
 #!/bin/bash
 
-if [ -z "$ROOT" ]; then
-    ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
-fi
-
-KNOWLEDGE_ROOT="$ROOT/shared/knowledge"
-REGISTRY="$KNOWLEDGE_ROOT/registry.json"
+[ -z "$ROOT" ] && ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 
 build_registry() {
 
-mkdir -p "$KNOWLEDGE_ROOT"
+    local workspace="$1"
 
-echo "[" > "$REGISTRY"
+    [ -z "$workspace" ] && {
+        echo "Usage: build_registry <workspace>"
+        return 1
+    }
 
-FIRST=1
+    local KNOWLEDGE_ROOT="$ROOT/workspaces/$workspace/knowledge"
+    local REGISTRY="$KNOWLEDGE_ROOT/registry.json"
 
-find "$KNOWLEDGE_ROOT" \
-    -mindepth 2 \
-    -type f \
-    -name "*.md" \
-| while read -r file
-do
+    mkdir -p "$KNOWLEDGE_ROOT"
 
-    TITLE=$(grep "^title:" "$file" | cut -d':' -f2- | xargs)
-    CATEGORY=$(grep "^category:" "$file" | cut -d':' -f2- | xargs)
+    echo "[" > "$REGISTRY"
 
-    REL=$(python3 - <<PY
+    first=1
+
+    find "$KNOWLEDGE_ROOT" \
+        -type f \
+        -name "*.md" \
+    | while read file
+    do
+
+        title=$(grep "^title:" "$file" | cut -d':' -f2- | xargs)
+        category=$(grep "^category:" "$file" | cut -d':' -f2- | xargs)
+
+        rel=$(python3 - <<PY
 import os
-print(os.path.relpath("$file", "$KNOWLEDGE_ROOT"))
+print(os.path.relpath("$file","$KNOWLEDGE_ROOT"))
 PY
 )
 
-    if [ "$FIRST" -eq 0 ]; then
-        echo "," >> "$REGISTRY"
-    fi
+        [ "$first" = 0 ] && echo "," >> "$REGISTRY"
 
-    FIRST=0
+        first=0
 
 cat >> "$REGISTRY" <<JSON
 {
-  "title":"$TITLE",
-  "category":"$CATEGORY",
-  "file":"$REL"
+  "title":"$title",
+  "category":"$category",
+  "file":"$rel"
 }
 JSON
 
-done
+    done
 
-echo "]" >> "$REGISTRY"
+    echo "]" >> "$REGISTRY"
 
-echo "Registry rebuilt."
-
+    echo "Registry rebuilt."
 }
-

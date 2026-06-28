@@ -1,26 +1,23 @@
 #!/bin/bash
 
-search_knowledge() {
+knowledge_search(){
 
-    local keyword="$1"
+WORKSPACE="$1"
+KEYWORD="$2"
 
-    find "$ROOT/shared/knowledge" \
-        -type f \
-        -name "*.md" | while read -r file
-    do
+find "$ROOT/workspaces/$WORKSPACE/knowledge" \
+-type f \
+-name "*.md" |
+while read file
+do
 
-        title=$(grep "^title:" "$file" | cut -d':' -f2- | xargs)
-        category=$(grep "^category:" "$file" | cut -d':' -f2- | xargs)
-        filename=$(basename "$file")
+grep -qi "$KEYWORD" "$file" || continue
 
-        if echo "$title $category $filename" | grep -iq "$keyword"; then
-            realpath --relative-to="$ROOT/shared/knowledge" "$file" 2>/dev/null \
-            || python3 - <<PY
+python3 - <<PY
 import os
-print(os.path.relpath("$file", "$ROOT/shared/knowledge"))
+print(os.path.relpath("$file","$ROOT/workspaces/$WORKSPACE/knowledge"))
 PY
-        fi
 
-    done
+done
 
 }

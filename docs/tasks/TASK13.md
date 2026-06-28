@@ -115,3 +115,41 @@ shared/knowledge
 
 完成 Knowledge 子系统冻结（Freeze）。
 
+
+---
+
+# Freeze（2026-06-28）
+
+## 最终完成
+
+Knowledge Runtime 已正式冻结（Freeze）。
+
+### 已完成内容
+
+- Workspace Knowledge 架构
+- Knowledge Workspace Template
+- Upgrade 自动补齐
+- Knowledge Search Runtime
+- Knowledge New Runtime
+- Registry Runtime
+- Legacy Cleanup（shared/knowledge 已移除）
+- CLI 接口统一
+
+### 最终接口
+
+aw knowledge search <workspace> <keyword>
+
+aw knowledge-new <workspace> <category> <name>
+
+### Freeze 原则
+
+Framework：
+
+负责 Runtime、Template、Standard。
+
+Workspace：
+
+负责 Context、Memory、Knowledge、Documents。
+
+Framework 永远不保存业务知识。
+

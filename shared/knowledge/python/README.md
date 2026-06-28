@@ -1,4 +1,0 @@
-# python
-
-Knowledge Category
-

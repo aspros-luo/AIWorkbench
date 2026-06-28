@@ -1,4 +1,0 @@
-# ai
-
-Knowledge Category
-

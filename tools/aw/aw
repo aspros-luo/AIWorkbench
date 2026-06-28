@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# ==========================================
-# AIWorkbench CLI
-# ==========================================
-
 set -e
 
 export ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
@@ -16,60 +12,48 @@ shift || true
 case "$COMMAND" in
 
 init)
-    exec "$ROOT/tools/aw/commands/init.sh" "$@"
-    ;;
+exec "$ROOT/tools/aw/commands/init.sh" "$@"
+;;
 
 doctor)
-    exec "$ROOT/tools/aw/commands/doctor.sh" "$@"
-    ;;
+exec "$ROOT/tools/aw/commands/doctor.sh" "$@"
+;;
 
 status)
-    exec "$ROOT/tools/aw/commands/status.sh" "$@"
-    ;;
-
-context)
-    exec "$ROOT/tools/aw/commands/context.sh" "$@"
-    ;;
-
-memory)
-    exec "$ROOT/tools/aw/commands/memory.sh" "$@"
-    ;;
-
-playbook)
-    exec "$ROOT/tools/aw/commands/playbook.sh" "$@"
-    ;;
-
-list-playbooks)
-    exec "$ROOT/tools/aw/commands/list-playbooks.sh" "$@"
-    ;;
-
-knowledge)
-    exec "$ROOT/tools/aw/commands/knowledge.sh" "$@"
-    ;;
-
-run)
-    exec "$ROOT/tools/aw/commands/run.sh" "$@"
-    ;;
-
-start)
-    exec "$ROOT/tools/aw/commands/start.sh" "$@"
-    ;;
-
-upgrade)
-    exec "$ROOT/tools/aw/commands/upgrade.sh" "$@"
-    ;;
+exec "$ROOT/tools/aw/commands/status.sh" "$@"
+;;
 
 version)
-    exec "$ROOT/tools/aw/commands/version.sh" "$@"
-    ;;
+exec "$ROOT/tools/aw/commands/version.sh" "$@"
+;;
+
+context)
+exec "$ROOT/tools/aw/commands/context.sh" "$@"
+;;
+
+memory)
+exec "$ROOT/tools/aw/commands/memory.sh" "$@"
+;;
+
+knowledge)
+exec "$ROOT/tools/aw/commands/knowledge.sh" "$@"
+;;
+
+knowledge-new)
+exec "$ROOT/tools/aw/commands/knowledge-new.sh" "$@"
+;;
+
+upgrade)
+exec "$ROOT/tools/aw/commands/upgrade.sh" "$@"
+;;
 
 help)
-    exec "$ROOT/tools/aw/commands/help.sh" "$@"
-    ;;
+exec "$ROOT/tools/aw/commands/help.sh" "$@"
+;;
 
 *)
-    echo "Unknown command: $COMMAND"
-    exit 1
-    ;;
+echo "Unknown command: $COMMAND"
+exit 1
+;;
 
 esac
