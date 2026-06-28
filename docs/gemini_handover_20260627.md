@@ -184,3 +184,7 @@ if __name__ == "__main__":
 ## 8. Task 03: 模版管理与检查 (Template Management)
 - 新增 `list-playbooks.sh`，实现快速列出可用模版功能。
 - 完善了 Playbook 的管理体系，确保持续的可观测性。
+
+## 14. Task 13: 统一 Agent 调度体系 (Agent Dispatcher)
+- 初始化 `ai/commands/agent_dispatch.sh`。
+- 实现了模型类型路由的逻辑框架，为后续接入 ChatGPT/Gemini/Codex 差异化 Prompt 规范奠定基础。
