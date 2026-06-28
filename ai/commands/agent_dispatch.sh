@@ -1,17 +1,36 @@
 #!/bin/bash
-# 统一 Agent 调度器：根据 MODEL 类型动态加载执行策略
-MODEL=${1:-gemini}
+# ==============================================================================
+# AIWorkbench Dispatcher - Agent 统一调度器 (严谨版)
+# ==============================================================================
+set -e
+
+ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+
+if [ -z "$1" ] || [ -z "$2" ]; then
+    echo "❌ 错误: Dispatcher 需要两个参数 [Workspace] [AgentName]"
+    exit 1
+fi
+
+WS_NAME=$1
 AGENT_NAME=$2
+WS_DIR="$ROOT/workspaces/$WS_NAME"
+PY_SCRIPT="$WS_DIR/scripts/${AGENT_NAME}_agent.py"
 
-echo "🤖 正在初始化 Agent: [$AGENT_NAME] (模型: $MODEL)..."
+if [ ! -d "$WS_DIR" ]; then
+    echo "❌ 错误: 工作空间不存在 -> $WS_DIR"
+    exit 1
+fi
 
-# 逻辑分发：未来这里可以根据 MODEL 自动注入不同的 Prompt 模版与 API 接口
-case $MODEL in
-    gemini|chatgpt|codex)
-        echo "✅ Agent 调度已准备就绪。"
-        ;;
-    *)
-        echo "❌ 错误: 未知模型类型 -> $MODEL"
-        exit 1
-        ;;
-esac
+if [ ! -f "$PY_SCRIPT" ]; then
+    echo "❌ 错误: Agent 脚本缺失 -> $PY_SCRIPT"
+    exit 1
+fi
+
+export AIWB_ROOT="$ROOT"
+export AIWB_WORKSPACE_DIR="$WS_DIR"
+export AIWB_CONTEXT_CURRENT="$WS_DIR/ai/context/CURRENT.md"
+export AIWB_CONTEXT_SESSION="$WS_DIR/ai/context/SESSION.md"
+export AIWB_CONTEXT_STACK="$WS_DIR/ai/context/STACK.md"
+
+echo "🤖 [Dispatcher] 成功调度 Agent: $AGENT_NAME (工作空间: $WS_NAME)"
+python3 "$PY_SCRIPT"

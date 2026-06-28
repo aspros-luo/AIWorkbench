@@ -188,3 +188,8 @@ if __name__ == "__main__":
 ## 14. Task 13: 统一 Agent 调度体系 (Agent Dispatcher)
 - 初始化 `ai/commands/agent_dispatch.sh`。
 - 实现了模型类型路由的逻辑框架，为后续接入 ChatGPT/Gemini/Codex 差异化 Prompt 规范奠定基础。
+
+## 16. Cleanup: 架构与运行期状态锁定
+- 移除了所有测试阶段的冗余脚本。
+- 确认 `run.sh` 与 `agent_dispatch.sh` 的双层调度链路逻辑闭合且健壮。
+- AIWorkbench 运行期基座已进入锁定状态，准备好迎接下一阶段的 MCP 集成。
