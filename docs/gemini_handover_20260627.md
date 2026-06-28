@@ -180,3 +180,7 @@ if __name__ == "__main__":
 ## 7. 任务执行：aw playbook 调用接口 (CLI Integration)
 - 新增 `tools/aw/commands/playbook.sh`。
 - 实现命令行快速读取 Playbook 模版内容，简化 AI 开发交互流程。
+
+## 8. Task 03: 模版管理与检查 (Template Management)
+- 新增 `list-playbooks.sh`，实现快速列出可用模版功能。
+- 完善了 Playbook 的管理体系，确保持续的可观测性。
