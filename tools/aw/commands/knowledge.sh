@@ -1,14 +1,7 @@
 #!/bin/bash
 
 source "$ROOT/tools/aw/lib/common.sh"
-source "$ROOT/tools/aw/lib/knowledge.sh"
-
-if [ "$1" = "new" ]; then
-    shift
-    exec "$ROOT/tools/aw/commands/knowledge-new.sh" "$@"
-fi
-
-CATEGORY="$1"
+source "$ROOT/tools/aw/lib/knowledge_search.sh"
 
 echo
 echo "===================================="
@@ -16,17 +9,38 @@ echo " AIWorkbench Knowledge"
 echo "===================================="
 echo
 
-knowledge_exists || {
-    echo "Knowledge directory missing."
-    exit 1
-}
+ACTION="$1"
 
-if [ -z "$CATEGORY" ]; then
-    echo "Categories"
-    echo "----------"
-    list_categories
-    exit 0
-fi
+case "$ACTION" in
 
-show_category "$CATEGORY"
+search)
 
+    KEYWORD="$2"
+
+    if [ -z "$KEYWORD" ]; then
+        echo "Usage:"
+        echo "  aw knowledge search <keyword>"
+        exit 1
+    fi
+
+    echo "Search:"
+    echo "--------------------------------"
+
+    search_knowledge "$KEYWORD"
+
+    ;;
+
+"")
+
+    echo "Usage:"
+    echo "  aw knowledge search <keyword>"
+
+    ;;
+
+*)
+
+    echo "Unknown subcommand: $ACTION"
+
+    ;;
+
+esac
