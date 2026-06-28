@@ -12,56 +12,56 @@ shift || true
 case "$COMMAND" in
 
 init)
-    exec "$ROOT/tools/aw/commands/init.sh" "$@"
-    ;;
+exec "$ROOT/tools/aw/commands/init.sh" "$@"
+;;
 
 doctor)
-    exec "$ROOT/tools/aw/commands/doctor.sh" "$@"
-    ;;
-
-version)
-    exec "$ROOT/tools/aw/commands/version.sh" "$@"
-    ;;
-
-help)
-    exec "$ROOT/tools/aw/commands/help.sh" "$@"
-    ;;
+exec "$ROOT/tools/aw/commands/doctor.sh" "$@"
+;;
 
 status)
-    exec "$ROOT/tools/aw/commands/status.sh" "$@"
-    ;;
+exec "$ROOT/tools/aw/commands/status.sh" "$@"
+;;
 
 context)
-    exec "$ROOT/tools/aw/commands/context.sh" "$@"
-    ;;
+exec "$ROOT/tools/aw/commands/context.sh" "$@"
+;;
 
 memory)
-    exec "$ROOT/tools/aw/commands/memory.sh" "$@"
-    ;;
-
-start)
-    exec "$ROOT/tools/aw/commands/start.sh" "$@"
-    ;;
-
-upgrade)
-    exec "$ROOT/tools/aw/commands/upgrade.sh" "$@"
-    ;;
-
-playbook)
-    exec "$ROOT/tools/aw/commands/playbook.sh" "$@"
-    ;;
+exec "$ROOT/tools/aw/commands/memory.sh" "$@"
+;;
 
 knowledge)
-    exec "$ROOT/tools/aw/commands/knowledge.sh" "$@"
-    ;;
+exec "$ROOT/tools/aw/commands/knowledge.sh" "$@"
+;;
+
+playbook)
+exec "$ROOT/tools/aw/commands/playbook.sh" "$@"
+;;
+
+upgrade)
+exec "$ROOT/tools/aw/commands/upgrade.sh" "$@"
+;;
+
+start)
+exec "$ROOT/tools/aw/commands/start.sh" "$@"
+;;
 
 run)
-    exec "$ROOT/tools/aw/commands/run.sh" "$@"
-    ;;
+exec "$ROOT/tools/aw/commands/run.sh" "$@"
+;;
+
+version)
+exec "$ROOT/tools/aw/commands/version.sh" "$@"
+;;
+
+help)
+exec "$ROOT/tools/aw/commands/help.sh" "$@"
+;;
 
 *)
-    echo "Unknown command: $COMMAND"
-    exit 1
-    ;;
+echo "Unknown command: $COMMAND"
+exit 1
+;;
 
 esac
