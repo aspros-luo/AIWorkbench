@@ -6,11 +6,11 @@ source "$ROOT/tools/aw/lib/memory.sh"
 
 WS_NAME="$1"
 ACTION="$2"
+TYPE="$3"
 
 if [ -z "$WS_NAME" ]; then
     echo "Usage:"
-    echo "  aw memory <workspace>"
-    echo "  aw memory <workspace> decision <title> <reason> <impact>"
+    echo "  aw memory <workspace> show <project|decisions|session|todo>"
     exit 1
 fi
 
@@ -21,38 +21,39 @@ MEMORY_DIR="$WORKSPACE_DIR/$WS_NAME/ai/memory"
     exit 1
 }
 
-if [ "$ACTION" = "decision" ]; then
+case "$ACTION" in
 
-    append_decision \
-        "$WS_NAME" \
-        "$3" \
-        "$4" \
-        "$5"
+show)
+
+    if [ -z "$TYPE" ]; then
+
+        echo
+        echo "Available Memory:"
+        echo
+        echo "  project"
+        echo "  decisions"
+        echo "  session"
+        echo "  todo"
+        echo
+
+        exit 0
+
+    fi
+
+    memory_read "$WS_NAME" "$TYPE"
+
+    ;;
+
+*)
 
     echo
-    echo "Decision added."
-    exit 0
-fi
+    echo "Usage:"
+    echo
+    echo "  aw memory <workspace> show"
+    echo "  aw memory <workspace> show project"
+    echo "  aw memory <workspace> show decisions"
+    echo "  aw memory <workspace> show session"
+    echo "  aw memory <workspace> show todo"
+    ;;
 
-echo
-echo "===================================="
-echo " AIWorkbench Memory"
-echo "===================================="
-echo
-
-for file in \
-PROJECT_MEMORY.md \
-DECISIONS.md \
-TODO_MEMORY.md \
-SESSION_MEMORY.md
-do
-
-echo "------------------------------------"
-echo "$file"
-echo "------------------------------------"
-
-cat "$MEMORY_DIR/$file"
-
-echo
-
-done
+esac
