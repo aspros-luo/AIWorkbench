@@ -1,30 +1,19 @@
 ---
-title:
-category:
+title: Kubernetes
+category: backend
 tags:
 version: 1.0
-updated:
+updated: 2026-06-29
 status: active
 ---
 
 # Summary
 
-一句话概括知识内容。
+Kubernetes 是容器编排平台。
 
 ---
 
 # Details
 
-详细说明。
+Kubernetes 可以管理 Pod、Deployment、Service 等资源。
 
----
-
-# References
-
-参考资料。
-
----
-
-# Related
-
-关联知识。

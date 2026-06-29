@@ -1,6 +1,10 @@
 #!/bin/bash
 
-source "$ROOT/tools/aw/lib/common.sh"
+# ==============================================================================
+# AIWorkbench Knowledge Command
+# ==============================================================================
+
+source "$ROOT/tools/aw/lib/bootstrap.sh"
 source "$ROOT/tools/aw/lib/knowledge_search.sh"
 
 echo
@@ -15,44 +19,32 @@ case "$ACTION" in
 
 search)
 
-WORKSPACE="$2"
-KEYWORD="$3"
+    KEYWORD="$2"
 
-[ -z "$WORKSPACE" ] && {
+    if [ -z "$KEYWORD" ]; then
+        echo "Usage:"
+        echo "  aw knowledge search <keyword>"
+        exit 1
+    fi
 
-echo "Usage:"
-echo "  aw knowledge search <workspace> <keyword>"
-exit 1
+    echo "Search:"
+    echo "--------------------------------"
 
-}
+    search_knowledge "$KEYWORD"
 
-[ -z "$KEYWORD" ] && {
-
-echo "Usage:"
-echo "  aw knowledge search <workspace> <keyword>"
-exit 1
-
-}
-
-echo "Search:"
-echo "--------------------------------"
-
-knowledge_search "$WORKSPACE" "$KEYWORD"
-
-;;
+    ;;
 
 "")
 
-echo "Usage:"
-echo "  aw knowledge search <workspace> <keyword>"
+    echo "Usage:"
+    echo "  aw knowledge search <keyword>"
 
-;;
+    ;;
 
 *)
 
-echo "Unknown subcommand: $ACTION"
+    echo "Unknown subcommand: $ACTION"
 
-;;
+    ;;
 
 esac
-

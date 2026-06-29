@@ -1,29 +1,33 @@
 #!/bin/bash
 
-source "$ROOT/tools/aw/lib/common.sh"
-source "$ROOT/tools/aw/lib/config.sh"
+# ==============================================================================
+# AIWorkbench Memory Command
+# ==============================================================================
+
+source "$ROOT/tools/aw/lib/bootstrap.sh"
 source "$ROOT/tools/aw/lib/memory.sh"
 
 WS_NAME="$1"
 ACTION="$2"
-TYPE="$3"
 
 if [ -z "$WS_NAME" ]; then
+    echo
     echo "Usage:"
-    echo "  aw memory <workspace> show <project|decisions|session|todo>"
+    echo
+    echo "  aw memory <workspace> show"
+    echo "  aw memory <workspace> show project"
+    echo "  aw memory <workspace> show decisions"
+    echo "  aw memory <workspace> show session"
+    echo "  aw memory <workspace> show todo"
+    echo
     exit 1
 fi
 
-MEMORY_DIR="$WORKSPACE_DIR/$WS_NAME/ai/memory"
-
-[ ! -d "$MEMORY_DIR" ] && {
-    echo "Memory not found."
-    exit 1
-}
-
 case "$ACTION" in
 
-show)
+show|"")
+
+    TYPE="$3"
 
     if [ -z "$TYPE" ]; then
 
@@ -44,16 +48,23 @@ show)
 
     ;;
 
+decision)
+
+    append_decision \
+        "$WS_NAME" \
+        "$3" \
+        "$4" \
+        "$5"
+
+    echo
+    echo "Decision added."
+
+    ;;
+
 *)
 
     echo
-    echo "Usage:"
-    echo
-    echo "  aw memory <workspace> show"
-    echo "  aw memory <workspace> show project"
-    echo "  aw memory <workspace> show decisions"
-    echo "  aw memory <workspace> show session"
-    echo "  aw memory <workspace> show todo"
-    ;;
+    echo "Unknown action."
 
+    ;;
 esac

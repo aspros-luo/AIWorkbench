@@ -1,23 +1,27 @@
 #!/bin/bash
 
-knowledge_search(){
+# ==============================================================================
+# Knowledge Search Library
+# ==============================================================================
 
-WORKSPACE="$1"
-KEYWORD="$2"
+search_knowledge() {
 
-find "$ROOT/workspaces/$WORKSPACE/knowledge" \
--type f \
--name "*.md" |
-while read file
-do
+    local keyword="$1"
 
-grep -qi "$KEYWORD" "$file" || continue
+    find "$WORKSPACE_DIR" \
+        -path "*/knowledge/*.md" \
+        -type f |
+    while read -r file
+    do
 
-python3 - <<PY
+        grep -qi "$keyword" "$file" || continue
+
+        python3 - <<PY
 import os
-print(os.path.relpath("$file","$ROOT/workspaces/$WORKSPACE/knowledge"))
+root = os.path.dirname(os.path.dirname("$file"))
+print(os.path.relpath("$file", root))
 PY
 
-done
+    done
 
 }
