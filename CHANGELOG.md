@@ -10,3 +10,19 @@
 - Runtime Preview 完成
 - Runtime Pipeline 验证通过
 
+
+## 2026-06-29
+
+### Task17 Completed
+
+- Prompt Model V1
+- Prompt Builder V1
+- Prompt Renderer V1
+- Prompt Snapshot (.prompt)
+- Prompt Preview 验证通过
+
+Known Issues:
+
+- Renderer 暂时承担部分 Builder 工作
+- 将于 Qwen Integration 阶段重构
+

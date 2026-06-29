@@ -24,3 +24,22 @@ Workspace Ready
 Runtime Builder
     ↓
 .runtime
+
+---
+
+# Task17
+
+状态：✅ Completed (V1)
+
+完成：
+
+- Prompt Model
+- Prompt Builder
+- Prompt Renderer
+- Prompt Snapshot
+- Prompt Preview
+
+备注：
+
+Renderer 将在 Milestone1 中进一步解耦。
+
