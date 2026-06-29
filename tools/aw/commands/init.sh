@@ -1,25 +1,32 @@
 #!/bin/bash
+
 set -e
-NAME=$1
+
+source "$ROOT/tools/aw/lib/bootstrap.sh"
+source "$ROOT/tools/aw/lib/template.sh"
+
+NAME="$1"
 
 if [ -z "$NAME" ]; then
-    echo "用法: aw init WorkspaceName"
+    echo "Usage:"
+    echo
+    echo "  aw init <workspace>"
     exit 1
 fi
 
-TARGET="$ROOT/workspaces/$NAME"
+TARGET="$WORKSPACE_DIR/$NAME"
+
 if [ -d "$TARGET" ]; then
-    echo "⚠️  工作空间 [$NAME] 已经存在。"
+    echo
+    echo "Workspace [$NAME] already exists."
     exit 1
 fi
 
-TEMPLATE="$ROOT/shared/templates/workspace"
-cp -R "$TEMPLATE" "$TARGET"
+copy_workspace_template "$NAME"
 
-find "$TARGET" -type f -name "*.md" | while read -r file; do
-    sed -i '' "s/{{WORKSPACE_NAME}}/$NAME/g" "$file"
-done
+render_workspace "$NAME"
 
-echo ""
-echo "🎉 工作空间创建成功！"
+echo
+echo "🎉 Workspace created."
+echo
 echo "$TARGET"
