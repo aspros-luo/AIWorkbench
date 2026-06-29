@@ -11,53 +11,22 @@ shift || true
 
 case "$COMMAND" in
 
-init)
-    exec "$ROOT/tools/aw/commands/init.sh" "$@"
-    ;;
-
-doctor)
-    exec "$ROOT/tools/aw/commands/doctor.sh" "$@"
-    ;;
-
-status)
-    exec "$ROOT/tools/aw/commands/status.sh" "$@"
-    ;;
-
-version)
-    exec "$ROOT/tools/aw/commands/version.sh" "$@"
-    ;;
-
-context)
-    exec "$ROOT/tools/aw/commands/context.sh" "$@"
-    ;;
-
-memory)
-    exec "$ROOT/tools/aw/commands/memory.sh" "$@"
-    ;;
-
-knowledge)
-    exec "$ROOT/tools/aw/commands/knowledge.sh" "$@"
-    ;;
-
-knowledge-new)
-    exec "$ROOT/tools/aw/commands/knowledge-new.sh" "$@"
-    ;;
-
-runtime)
-    exec "$ROOT/tools/aw/commands/runtime.sh" "$@"
-    ;;
-
-upgrade)
-    exec "$ROOT/tools/aw/commands/upgrade.sh" "$@"
-    ;;
-
-help)
-    exec "$ROOT/tools/aw/commands/help.sh" "$@"
-    ;;
+init) exec "$ROOT/tools/aw/commands/init.sh" "$@" ;;
+doctor) exec "$ROOT/tools/aw/commands/doctor.sh" "$@" ;;
+status) exec "$ROOT/tools/aw/commands/status.sh" "$@" ;;
+version) exec "$ROOT/tools/aw/commands/version.sh" "$@" ;;
+context) exec "$ROOT/tools/aw/commands/context.sh" "$@" ;;
+memory) exec "$ROOT/tools/aw/commands/memory.sh" "$@" ;;
+knowledge) exec "$ROOT/tools/aw/commands/knowledge.sh" "$@" ;;
+knowledge-new) exec "$ROOT/tools/aw/commands/knowledge-new.sh" "$@" ;;
+runtime) exec "$ROOT/tools/aw/commands/runtime.sh" "$@" ;;
+prompt) exec "$ROOT/tools/aw/commands/prompt.sh" "$@" ;;
+upgrade) exec "$ROOT/tools/aw/commands/upgrade.sh" "$@" ;;
+help) exec "$ROOT/tools/aw/commands/help.sh" "$@" ;;
 
 *)
-    echo "Unknown command: $COMMAND"
-    exit 1
-    ;;
+echo "Unknown command: $COMMAND"
+exit 1
+;;
 
 esac

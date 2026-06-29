@@ -3,13 +3,8 @@
 # ==============================================================================
 # Prompt Builder
 #
-# 根据 Runtime Snapshot 生成 Prompt Package。
-#
-# 输入：
-#   .runtime/
-#
-# 输出：
-#   Prompt Package
+# 根据 Runtime Snapshot 构建 Prompt Package。
+# Builder 不负责写文件。
 # ==============================================================================
 
 source "$ROOT/tools/aw/lib/prompt_model.sh"
@@ -17,13 +12,42 @@ source "$ROOT/tools/aw/lib/prompt_model.sh"
 prompt_build() {
 
     local workspace="$1"
-
     local runtime
 
     runtime=$(prompt_runtime_dir "$workspace")
 
-    echo "SYSTEM_FILE=$runtime/project.md"
-    echo "MEMORY_FILE=$runtime/memory.md"
-    echo "KNOWLEDGE_FILE=$runtime/knowledge.md"
+    SYSTEM_CONTENT=$(cat <<EOT
+# AIWorkbench System Prompt
+
+Workspace
+
+$(cat "$runtime/workspace.md")
+
+---
+
+Project
+
+$(cat "$runtime/project.md")
+
+---
+
+Memory
+
+$(cat "$runtime/memory.md")
+
+---
+
+Knowledge
+
+$(cat "$runtime/knowledge.md")
+EOT
+)
+
+    USER_CONTENT=$(cat <<EOT
+# User Request
+
+(Waiting for request)
+EOT
+)
 
 }

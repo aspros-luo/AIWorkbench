@@ -26,3 +26,22 @@ Known Issues:
 - Renderer 暂时承担部分 Builder 工作
 - 将于 Qwen Integration 阶段重构
 
+
+## 2026-06-29
+
+### Task17 Completed
+
+新增：
+
+- Prompt Model
+- Prompt Builder
+- Prompt Renderer
+- Prompt Engine
+- Prompt Command (aw prompt)
+
+完成：
+
+- Prompt Snapshot (.prompt)
+- Prompt Preview
+- Runtime -> Prompt Pipeline
+

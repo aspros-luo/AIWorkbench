@@ -40,3 +40,18 @@ Memory Runtime 完成
 影响：
 准备进入 Knowledge Runtime
 
+
+---
+
+日期：
+2026-06-29
+
+决定：
+Prompt Engine Freeze
+
+原因：
+完成 Runtime 到 Prompt Pipeline
+
+影响：
+Framework 开始进入 AI Integration 阶段
+
