@@ -77,3 +77,29 @@ Executor（Future）
 Status
 
 Draft v1.0
+
+---
+
+## Run Configuration
+
+Each Workspace owns an independent run.yaml.
+
+Example:
+
+provider: ollama
+model: qwen3-coder:latest
+temperature: 0.2
+stream: false
+
+The Run Pipeline loads provider information from run.yaml.
+
+Future providers:
+
+- Ollama
+- OpenAI
+- Claude
+- Gemini
+- MCP
+
+The Run Pipeline never depends on a specific LLM implementation.
+

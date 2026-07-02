@@ -1,16 +1,14 @@
 #!/bin/bash
 
-# ==============================================================================
-# Run Engine
-# ==============================================================================
-
 source "$ROOT/tools/aw/lib/ai_runtime.sh"
 source "$ROOT/tools/aw/lib/prompt_engine.sh"
+source "$ROOT/tools/aw/lib/prompt_request.sh"
 source "$ROOT/tools/aw/lib/llm_adapter.sh"
 
 run_workspace() {
 
     local workspace="$1"
+    local cli_request="$2"
 
     echo
     echo "===================================="
@@ -18,16 +16,27 @@ run_workspace() {
     echo "===================================="
 
     echo
-    echo "[1/3] Building Runtime..."
+    echo "[1/4] Building Runtime..."
     build_runtime "$workspace"
 
     echo
-    echo "[2/3] Building Prompt..."
+    echo "[2/4] Building Prompt..."
     build_prompt "$workspace"
 
+    local request
+
+    request="$(collect_request "$cli_request")"
+
     echo
-    echo "[3/3] Preparing LLM..."
-    llm_generate "$workspace"
+    echo "[3/4] Preparing Request..."
+
+    echo
+    echo "$request"
+
+    echo
+    echo "[4/4] Preparing LLM..."
+
+    llm_generate "$workspace" "$request"
 
     echo
     echo "Run Pipeline completed."

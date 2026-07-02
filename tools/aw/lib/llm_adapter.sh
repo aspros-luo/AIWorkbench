@@ -5,6 +5,7 @@ source "$ROOT/tools/aw/lib/ollama_client.sh"
 llm_generate() {
 
     local workspace="$1"
+    local request="$2"
 
     echo
     echo "===================================="
@@ -14,13 +15,12 @@ llm_generate() {
     echo
     echo "Provider:"
     echo "------------------------------------"
-
     echo "Ollama"
 
     echo
     echo "Generating..."
     echo
 
-    ollama_generate "$workspace"
+    ollama_generate "$workspace" "$request"
 
 }
