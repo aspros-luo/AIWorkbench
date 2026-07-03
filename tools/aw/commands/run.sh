@@ -3,7 +3,9 @@
 source "$ROOT/tools/aw/lib/bootstrap.sh"
 
 source "$ROOT/tools/aw/lib/ai_runtime.sh"
+
 source "$ROOT/tools/aw/lib/prompt_model.sh"
+source "$ROOT/tools/aw/lib/prompt_engine.sh"
 
 source "$ROOT/tools/aw/lib/ollama_client.sh"
 source "$ROOT/tools/aw/lib/provider.sh"
