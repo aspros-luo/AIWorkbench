@@ -54,18 +54,4 @@ Knowledge
 $(cat "$runtime/knowledge.md")
 EOT
 
-    echo
-    echo "===================================="
-    echo " AI Prompt"
-    echo "===================================="
-
-    echo
-    echo "Prompt Directory:"
-    echo "------------------------------------"
-
-    ls "$output"
-
-    echo
-    echo "Prompt build completed."
-
 }
